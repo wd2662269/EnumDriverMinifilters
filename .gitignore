@@ -62,3 +62,6 @@ _NCrunch_*
 # Code coverage
 *.coverage
 *.coveragexml
+
+# CodeQL
+_codeql_detected_source_root
