@@ -377,8 +377,11 @@ NTSTATUS EnumerateMinifilters(VOID)
             
             if (NT_SUCCESS(status)) {
                 WCHAR filterName[256] = {0};
-                RtlCopyMemory(filterName, filterInfo->FilterNameBuffer, 
-                             min(filterInfo->FilterNameLength, sizeof(filterName) - sizeof(WCHAR)));
+                SIZE_T copySize = filterInfo->FilterNameLength;
+                if (copySize > sizeof(filterName) - sizeof(WCHAR)) {
+                    copySize = sizeof(filterName) - sizeof(WCHAR);
+                }
+                RtlCopyMemory(filterName, filterInfo->FilterNameBuffer, copySize);
                 
                 DbgPrint("[EnumerateMinifilters] Filter[%lu]: %ws\n", i, filterName);
                 DbgPrint("[EnumerateMinifilters]   Frame ID: %lu\n", filterInfo->FrameID);
