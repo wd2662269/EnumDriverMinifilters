@@ -1,0 +1,92 @@
+;
+; EnumerateDriverMinifilters.inf
+;
+; Installation file for EnumerateDriverMinifilters minifilter driver
+;
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = "ActivityMonitor"
+ClassGuid   = {b86dff51-a31e-4bac-b3cf-e8cfe75c9fc2}
+Provider    = %ProviderName%
+DriverVer   = 11/30/2025,1.0.0.0
+CatalogFile = EnumerateDriverMinifilters.cat
+PnpLockdown = 1
+
+[DestinationDirs]
+DefaultDestDir          = 12
+EnumerateDriverMinifilters.DriverFiles = 12
+
+[SourceDisksFiles]
+EnumerateDriverMinifilters.sys = 1,,
+
+[SourceDisksNames]
+1 = %DiskName%,,,
+
+;;
+;; Default install sections
+;;
+
+[DefaultInstall.NTamd64]
+OptionDesc  = %ServiceDescription%
+CopyFiles   = EnumerateDriverMinifilters.DriverFiles
+
+[DefaultInstall.NTamd64.Services]
+AddService  = %ServiceName%,,EnumerateDriverMinifilters.Service
+
+;;
+;; Default uninstall sections
+;;
+
+[DefaultUninstall.NTamd64]
+LegacyUninstall = 1
+DelFiles        = EnumerateDriverMinifilters.DriverFiles
+
+[DefaultUninstall.NTamd64.Services]
+DelService = %ServiceName%,0x200
+
+;;
+;; Service Section
+;;
+
+[EnumerateDriverMinifilters.Service]
+DisplayName      = %ServiceDisplayName%
+Description      = %ServiceDescription%
+ServiceBinary    = %12%\EnumerateDriverMinifilters.sys
+Dependencies     = "FltMgr"
+ServiceType      = 2                    ; SERVICE_FILE_SYSTEM_DRIVER
+StartType        = 3                    ; SERVICE_DEMAND_START
+ErrorControl     = 1                    ; SERVICE_ERROR_NORMAL
+LoadOrderGroup   = "FSFilter Activity Monitor"
+AddReg           = EnumerateDriverMinifilters.AddRegistry
+
+;;
+;; Registry entries
+;;
+
+[EnumerateDriverMinifilters.AddRegistry]
+HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
+HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
+HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
+
+;;
+;; Copy Files
+;;
+
+[EnumerateDriverMinifilters.DriverFiles]
+EnumerateDriverMinifilters.sys
+
+;;
+;; String Section
+;;
+
+[Strings]
+ProviderName            = "EnumerateDriverMinifilters"
+ServiceDescription      = "Enumerate Driver Minifilters - Auto find OperationsOffset"
+ServiceDisplayName      = "EnumerateDriverMinifilters"
+ServiceName             = "EnumerateDriverMinifilters"
+DiskName                = "EnumerateDriverMinifilters Installation Disk"
+DefaultInstance         = "EnumerateDriverMinifilters Instance"
+Instance1.Name          = "EnumerateDriverMinifilters Instance"
+Instance1.Altitude      = "370050"
+Instance1.Flags         = 0x0

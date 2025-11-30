@@ -1,0 +1,64 @@
+# Build output directories
+Debug/
+Release/
+x64/
+x86/
+obj/
+objchk/
+objfre/
+
+# Visual Studio files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+# Build artifacts
+*.obj
+*.sys
+*.pdb
+*.ilk
+*.exp
+*.lib
+*.log
+*.tlog/
+*.idb
+*.bsc
+
+# Driver package files
+*.cat
+*.cer
+
+# Temporary files
+*.tmp
+*~
+
+# Windows Driver Kit generated files
+build.log
+build.wrn
+build.err
+_objects/
+
+# Package directories
+Package/
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NCrunch
+*.ncrunchproject
+*.ncrunchsolution
+_NCrunch_*
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# Code coverage
+*.coverage
+*.coveragexml
